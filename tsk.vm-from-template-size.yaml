@@ -1,0 +1,34 @@
+---
+
+- name: Create a virtual machine from a template - "{{ vm_name }}"
+  vmware_guest:
+    hostname: "{{ vcenter_server }}"
+    username: "{{ vcenter_admin }}"
+    password: "{{ vcenter_pass }}"
+    validate_certs: no
+    name: "{{ vm_name }}"
+    state: poweredon
+    template: "{{ vm_template }}"
+    datacenter: "{{ datacenter }}"
+    cluster: "{{ cluster }}"
+    folder: "{{ vm_folder }}"
+    hardware:
+      num_cpus: "{{ vm_cpu }}"
+      memory_mb:  "{{ vm_mem }}"
+    networks:
+    - name: "{{ vm_network }}"
+    customization_spec: "{{ custom_spec }}"
+    wait_for_ip_address: yes
+    wait_for_customization: yes
+  delegate_to: localhost
+
+- name: Get some guest information to start
+  vmware_guest_info:
+    name: "{{ vm_name }}"
+    hostname: "{{ vcenter_server }}"
+    username: "{{ vcenter_admin }}"
+    password: "{{ vcenter_pass }}"
+    datacenter: "{{ datacenter }}"
+    validate_certs: no
+  delegate_to: localhost
+  register: return_vm

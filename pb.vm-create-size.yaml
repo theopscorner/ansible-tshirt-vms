@@ -1,0 +1,38 @@
+---
+- name: Deploy Windows VM based on Requested Size
+  hosts: localhost
+  gather_facts: no
+  vars_files: 
+    - vars/size-vars.yaml
+    - vars/vm-vars.yaml
+  vars_prompt:
+    - name: name
+      prompt: "\nPlease enter the VM name"
+      private: no
+    - name: vm_size
+      prompt: "\nEnter the size number to select the requested size.\n\n1 - Small (2cpus 4g mem)\n2 - Medium (2cpus 8g mem)\n3 - Large (4cpus 12g mem)\n\n"
+      private: no
+
+  tasks:
+  - set_fact: 
+      size: "small"
+    when: vm_size == '1'
+
+  - set_fact: 
+      size: "medium"
+    when: vm_size == '2'
+
+  - set_fact: 
+      size: "large"
+    when: vm_size == '3'
+
+  - name: Debug the variable for CPU
+    debug:
+      msg: "Creating VM {{ name|lower }}  with {{ vm_cpu_size[size] }} vCPUs and {{ vm_mem_size[size] }}MB of RAM"
+
+  - name: Create the VM
+    include_tasks: tsk.vm-from-template-size.yaml
+    vars:
+     vm_name: "{{ name | lower}}"
+     vm_cpu: "{{ vm_cpu_size[size] }}"
+     vm_mem: "{{ vm_mem_size[size] }}"
