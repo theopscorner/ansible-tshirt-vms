@@ -33,10 +33,10 @@
 
   - name: Debug the variable for CPU
       debug:
-        msg: >-
-          Creating VM {{ name|lower }}
-          with {{ vm_cpu_size[size] }} vCPUs
-          and {{ vm_mem_size[size] }}MB of RAM
+      msg: >-
+        Creating VM {{ name|lower }}
+        with {{ vm_cpu_size[size] }} vCPUs
+        and {{ vm_mem_size[size] }}MB of RAM
 
   - name: Create the VM
     include_tasks: tsk.vm-from-template-size.yaml
