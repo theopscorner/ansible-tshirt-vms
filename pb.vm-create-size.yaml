@@ -9,8 +9,13 @@
     - name: name
       prompt: "\nPlease enter the VM name"
       private: no
+
     - name: vm_size
-      prompt: "\nEnter the size number to select the requested size.\n\n1 - Small (2cpus 4g mem)\n2 - Medium (2cpus 8g mem)\n3 - Large (4cpus 12g mem)\n\n"
+      prompt: |
+        Enter the size number to select the requested size.
+        1 - Small (2cpus 4g mem)
+        2 - Medium (2cpus 8g mem)
+        3 - Large (4cpus 12g mem)
       private: no
 
   tasks:
@@ -27,8 +32,11 @@
     when: vm_size == '3'
 
   - name: Debug the variable for CPU
-    debug:
-      msg: "Creating VM {{ name|lower }}  with {{ vm_cpu_size[size] }} vCPUs and {{ vm_mem_size[size] }}MB of RAM"
+      debug:
+        msg: >-
+          Creating VM {{ name|lower }}
+          with {{ vm_cpu_size[size] }} vCPUs
+          and {{ vm_mem_size[size] }}MB of RAM
 
   - name: Create the VM
     include_tasks: tsk.vm-from-template-size.yaml
