@@ -6,7 +6,7 @@
     - vars/size-vars.yaml
     - vars/vm-vars.yaml
   vars_prompt:
-    - name: name
+    - name: strname
       prompt: "\nPlease enter the VM name"
       private: no
 
@@ -32,15 +32,15 @@
     when: vm_size == '3'
 
   - name: Debug the variable for CPU
-      debug:
+    debug:
       msg: >-
-        Creating VM {{ name|lower }}
+        Creating VM {{ strname|lower }}
         with {{ vm_cpu_size[size] }} vCPUs
         and {{ vm_mem_size[size] }}MB of RAM
 
   - name: Create the VM
     include_tasks: tsk.vm-from-template-size.yaml
     vars:
-     vm_name: "{{ name | lower}}"
+     vm_name: "{{ strname | lower}}"
      vm_cpu: "{{ vm_cpu_size[size] }}"
      vm_mem: "{{ vm_mem_size[size] }}"
