@@ -1,10 +1,10 @@
-vcenter_server: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:vsphere_server')}}"
-datacenter: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:datacenter')}}"
+vcenter_server: YOURVCENTERSERVER
+datacenter: YOURDATACENTERTARGET
 vm_folder: /
-cluster: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:cluster')}}" 
-vm_datastore: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:datastore')}}"  
-vm_network: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:vm_network')}}"   
-vcenter_admin: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:vsphere_user')}}"
-vcenter_pass: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:vsphere_password')}}"
-custom_spec: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:custom_spec')}}" 
-vm_template: "{{ lookup('hashi_vault', 'secret=secret/vcenter_vc02:vm_template')}}" 
+cluster: YOURTARGETCLUSTER
+vm_datastore: YOURTARGETDATASTORE
+vm_network: YOURTARGETPORTGROUP   
+vcenter_admin: YOURVCADMINACCOUNT
+vcenter_pass: YOURVCADMINPASSWORD
+custom_spec: YOURCUSTOMSPECFORTHETEMPLATE
+vm_template: YOURSOURCEVMTEMPLATE
